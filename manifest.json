@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "MiniNewTab",
+  "version": "0.1.3",
+  "description": "极简新标签页，仅壁纸+时间+搜索，无臃肿组件，支持本地图片/视频壁纸",
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "permissions": ["storage", "unlimitedStorage"],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}

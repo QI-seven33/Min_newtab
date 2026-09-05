@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab Page</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="icon-48.png">
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <!-- 壁纸底层：视频 / 图片二选一 -->
+  <div class="wallpaper-wrap">
+    <video id="videoWallpaper" class="wallpaper" autoplay loop muted playsinline></video>
+    <img id="imgWallpaper" class="wallpaper">
+  </div>
+
+  <!-- 顶层交互 -->
+  <div class="container">
+    <!-- 顶部搜索框 -->
+    <div class="search-box">
+      <input id="searchInput" type="text" placeholder="输入搜索内容">
+    </div>
+
+    <!-- 居中时间日期 -->
+    <div class="time-block">
+      <div id="timeText" class="time"></div>
+      <div id="dateText" class="date"></div>
+      <div id="signText" class="sign"></div>
+    </div>
+  </div>
+
+  <!-- 左下角设置按钮 -->
+  <div class="setting-btn" id="settingBtn">⚙</div>
+
+  <!-- 设置弹窗 -->
+  <div class="modal" id="settingModal">
+    <div class="modal-inner">
+      <h3>壁纸设置</h3>
+      <div class="item">
+        <label>上传图片壁纸（刷新可持久保存）</label>
+        <input type="file" id="uploadImg" accept="image/*">
+      </div>
+      <div class="item">
+        <label>上传视频壁纸（刷新/新标签页后也会保留）</label>
+        <input type="file" id="uploadVideo" accept="video/*">
+      </div>
+      <div class="item">
+        <label>自定义底部签名</label>
+        <input type="text" id="inputSign" placeholder="输入你的签名">
+      </div>
+      <div class="btns">
+        <button id="saveConfig">保存</button>
+        <button id="closeModal">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

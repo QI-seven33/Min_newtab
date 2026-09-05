@@ -1,0 +1,139 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+html,body{
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  user-select:none;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+input{
+  user-select:text;
+}
+
+/* 壁纸层 GPU加速，适配165hz高刷 */
+.wallpaper-wrap{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+.wallpaper{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform: translateZ(0); /* GPU独立合成层，视频不丢帧 */
+}
+#videoWallpaper{
+  display:none;
+}
+#imgWallpaper{
+  display:none;
+}
+
+.container{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  padding-top:100px;
+  align-items:center;
+}
+
+/* 搜索框 */
+.search-box{
+  width: min(640px, 90vw);
+}
+#searchInput{
+  width:100%;
+  height:44px;
+  padding:0 16px;
+  border-radius:12px;
+  border:none;
+  background:rgba(255,255,255,0.72);
+  font-size:16px;
+  outline:none;
+  box-shadow: 0 2px 8px #00000018;
+}
+
+/* 居中时间模块 */
+.time-block{
+  margin-top:80px;
+  text-align:center;
+  color:#ffffff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.time{
+  font-size:120px;
+  font-weight:300;
+  letter-spacing:4px;
+}
+.date{
+  font-size:22px;
+  margin-top:8px;
+}
+.sign{
+  margin-top:16px;
+  font-size:17px;
+  opacity:0.92;
+}
+
+/* 设置按钮左下角 */
+.setting-btn{
+  position:fixed;
+  bottom:18px;
+  left:18px;
+  font-size:22px;
+  opacity:0.65;
+  cursor:pointer;
+  transition: opacity 0.2s;
+}
+.setting-btn:hover{
+  opacity:1;
+}
+
+/* 设置弹窗 */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99;
+}
+.modal-inner{
+  background:#fff;
+  padding:28px;
+  border-radius:14px;
+  width:min(440px, 92vw);
+}
+.modal-inner h3{
+  margin-bottom:20px;
+}
+.item{
+  margin-bottom:16px;
+}
+.item input{
+  width:100%;
+  margin-top:6px;
+  padding:8px;
+}
+.btns{
+  display:flex;
+  gap:10px;
+  margin-top:22px;
+}
+button{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+#saveConfig{
+  background:#2563eb;
+  color:white;
+}
