@@ -1,62 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Tab Page</title>
-  <link rel="icon" type="image/png" sizes="16x16" href="icon-16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="icon-48.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>新标签页 · MiniNewTab</title>
+  <link rel="icon" type="image/png" href="icon-32.png">
   <link rel="stylesheet" href="newtab.css">
+  <script src="newtab.js" defer></script>
 </head>
 <body>
-  <!-- 壁纸底层：视频 / 图片二选一 -->
-  <div class="wallpaper-wrap">
-    <video id="videoWallpaper" class="wallpaper" autoplay loop muted playsinline></video>
-    <img id="imgWallpaper" class="wallpaper">
-  </div>
-
-  <!-- 顶层交互 -->
-  <div class="container">
-    <!-- 顶部搜索框 -->
-    <div class="search-box">
-      <input id="searchInput" type="text" placeholder="输入搜索内容">
-    </div>
-
-    <!-- 居中时间日期 -->
-    <div class="time-block">
-      <div id="timeText" class="time"></div>
-      <div id="dateText" class="date"></div>
-      <div id="signText" class="sign"></div>
-    </div>
-  </div>
-
-  <!-- 左下角设置按钮 -->
-  <div class="setting-btn" id="settingBtn">⚙</div>
-
-  <!-- 设置弹窗 -->
-  <div class="modal" id="settingModal">
-    <div class="modal-inner">
-      <h3>壁纸设置</h3>
-      <div class="item">
-        <label>上传图片壁纸（刷新可持久保存）</label>
-        <input type="file" id="uploadImg" accept="image/*">
-      </div>
-      <div class="item">
-        <label>上传视频壁纸（刷新/新标签页后也会保留）</label>
-        <input type="file" id="uploadVideo" accept="video/*">
-      </div>
-      <div class="item">
-        <label>自定义底部签名</label>
-        <input type="text" id="inputSign" placeholder="输入你的签名">
-      </div>
-      <div class="btns">
-        <button id="saveConfig">保存</button>
-        <button id="closeModal">关闭</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="newtab.js"></script>
+  <div class="wallpaper-wrap" aria-hidden="true"><video id="videoWallpaper" class="wallpaper" loop muted playsinline hidden></video><img id="imgWallpaper" class="wallpaper" alt="" hidden><div class="wallpaper-shade"></div></div>
+  <main class="main"><section class="home" aria-label="新标签页">
+    <div class="time-block"><div class="clock-line"><span id="periodText" class="period"></span><time id="timeText" class="time"></time><span id="secondsText" class="seconds"></span></div><div id="dateText" class="date"></div><p id="signText" class="sign" hidden></p></div>
+    <form id="searchForm" class="search-box" role="search">
+      <label for="searchInput" class="sr-only">搜索内容或网址</label><input id="searchInput" type="text" placeholder="搜索或输入网址" autocomplete="off" spellcheck="false" maxlength="2048" enterkeyhint="search">
+      <button class="icon-button search-submit" type="submit" aria-label="搜索或前往网址" title="搜索或前往网址"><svg class="icon"><use href="assets/icons.svg#arrow-right"></use></svg></button>
+    </form>
+    <section id="shortcutsSection" class="shortcuts-section" aria-label="网站快捷方式"><div id="shortcuts" class="shortcuts"></div></section>
+  </section></main>
+  <footer class="footer"><button id="settingBtn" class="icon-button settings-trigger" aria-label="打开设置" title="自定义新标签页"><svg class="icon"><use href="assets/icons.svg#sliders-horizontal"></use></svg></button></footer>
+  <dialog id="settingModal" class="settings-drawer" aria-labelledby="settingsTitle">
+    <div class="drawer-header"><h1 id="settingsTitle">自定义新标签页</h1><button id="closeModal" class="icon-button" aria-label="关闭设置"><svg class="icon"><use href="assets/icons.svg#x"></use></svg></button></div>
+    <div class="drawer-content">
+      <section class="settings-section"><h2>外观</h2>
+        <div class="segmented" role="group" aria-label="主题模式"><button data-theme-choice="light" aria-pressed="false"><svg class="icon small"><use href="assets/icons.svg#sun"></use></svg>浅色</button><button data-theme-choice="dark" aria-pressed="false"><svg class="icon small"><use href="assets/icons.svg#moon"></use></svg>深色</button><button data-theme-choice="system" aria-pressed="true"><svg class="icon small"><use href="assets/icons.svg#desktop"></use></svg>跟随系统</button></div>
+        <p class="field-label">主题颜色</p><div class="color-options" role="group" aria-label="主题颜色"><button class="color-swatch" data-color="blue" aria-label="晴空蓝" aria-pressed="true"><span></span></button><button class="color-swatch" data-color="sage" aria-label="鼠尾草绿" aria-pressed="false"><span></span></button><button class="color-swatch" data-color="sand" aria-label="暖沙色" aria-pressed="false"><span></span></button><button class="color-swatch" data-color="rose" aria-label="雾粉色" aria-pressed="false"><span></span></button><button class="color-swatch" data-color="slate" aria-label="石墨灰" aria-pressed="false"><span></span></button></div>
+      </section>
+      <section class="settings-section"><h2>背景</h2><md-outlined-button id="uploadButton" class="upload-button"><svg slot="icon" class="icon"><use href="assets/icons.svg#upload-simple"></use></svg>上传图片或视频</md-outlined-button><input id="uploadMedia" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif,video/mp4,video/webm" hidden><p class="helper">保存在此设备，无需上传。图片 ≤ 20 MB，视频 ≤ 100 MB。</p><div id="wallpaperStatus" class="wallpaper-status" hidden><svg class="icon"><use href="assets/icons.svg#image"></use></svg><span id="wallpaperName"></span><button id="resetWallpaper" class="text-button">移除</button></div><button id="videoToggle" class="text-button video-control" hidden>暂停壁纸</button><div id="dimControl" class="dim-control" hidden><label for="dimInput">背景压暗 <output id="dimValue" for="dimInput">0%</output></label><input id="dimInput" type="range" min="0" max="80" step="5" value="0"></div></section>
+      <section class="settings-section"><h2>时间</h2><div class="setting-row"><label for="showSeconds">显示秒数</label><md-switch id="showSeconds" aria-label="显示秒数"></md-switch></div><div class="setting-row"><label for="hour12">12 小时制</label><md-switch id="hour12" aria-label="12 小时制"></md-switch></div></section>
+      <section class="settings-section"><h2>网站快捷方式</h2><div class="setting-row"><label for="showShortcuts">显示网站快捷方式</label><md-switch id="showShortcuts" aria-label="显示网站快捷方式"></md-switch></div><div id="shortcutSettings" class="shortcut-settings"></div><md-outlined-button id="addShortcutButton" class="upload-button"><svg slot="icon" class="icon"><use href="assets/icons.svg#plus"></use></svg>添加快捷方式</md-outlined-button></section>
+      <section class="settings-section"><h2>搜索与链接</h2><label class="field-label" for="searchEngine">默认搜索引擎</label><select id="searchEngine"><option value="google">Google</option><option value="bing">Bing</option><option value="baidu">百度</option><option value="duckduckgo">DuckDuckGo</option></select><div class="setting-row"><label for="openInNewTab">在新标签页打开链接</label><md-switch id="openInNewTab" aria-label="在新标签页打开链接"></md-switch></div><p class="helper">适用于搜索结果和网站快捷方式。</p></section>
+      <section class="settings-section last"><h2>一句自己的话</h2><label class="sr-only" for="inputSign">自定义签名</label><input id="inputSign" type="text" maxlength="80" placeholder="写点什么，也可以留白"><div class="input-caption"><span>显示在日期下方</span><span id="signCount">0 / 80</span></div></section>
+    </div><div class="drawer-footer"><p id="settingsError" class="form-error" role="alert" hidden></p><div class="drawer-actions"><md-text-button id="cancelSettings">取消</md-text-button><md-filled-button id="saveConfig">保存更改</md-filled-button></div></div>
+  </dialog>
+  <dialog id="shortcutDialog" class="shortcut-dialog" aria-labelledby="shortcutTitle"><form id="shortcutForm" novalidate><div class="shortcut-heading"><h2 id="shortcutTitle">添加快捷方式</h2><button id="closeShortcut" type="button" class="icon-button" aria-label="关闭快捷方式窗口"><svg class="icon"><use href="assets/icons.svg#x"></use></svg></button></div><label for="shortcutName">名称</label><input id="shortcutName" type="text" maxlength="24" required placeholder="例如：我的工作台" autocomplete="off"><label for="shortcutUrl">网址</label><input id="shortcutUrl" type="text" maxlength="2048" required placeholder="https://example.com" autocomplete="url" spellcheck="false" inputmode="url"><p id="shortcutError" class="form-error" role="alert" hidden></p><div class="shortcut-actions"><md-text-button id="deleteShortcut" type="button" hidden>移除</md-text-button><span class="spacer"></span><md-text-button id="cancelShortcut" type="button">取消</md-text-button><md-filled-button id="saveShortcut" type="submit">完成</md-filled-button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden><span id="toastMessage"></span><button id="toastAction" hidden>撤销</button></div>
 </body>
 </html>
